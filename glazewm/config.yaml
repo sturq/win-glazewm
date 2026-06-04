@@ -1,0 +1,141 @@
+# GlazeWM config — mirrors the keybinds + look of sturq's NixOS Sway+Waybar.
+# Catppuccin Mocha palette. Win-key = primary modifier.
+# Reference: https://github.com/glzr-io/glazewm
+
+general:
+  startup_commands:
+    - 'shell-exec zebar'
+  config_reload_command: 'shell-exec %userprofile%/.glzr/glazewm/config.yaml'
+  cursor_jump:
+    enabled: true
+    trigger: 'window_focus'
+
+gaps:
+  scale_with_dpi: true
+  inner_gap: '6px'
+  outer_gap:
+    top: '34px'      # space for Zebar
+    right: '4px'
+    bottom: '4px'
+    left: '4px'
+
+window_effects:
+  focused_window:
+    border:
+      enabled: true
+      color: '#cba6f7'        # Catppuccin Mocha — mauve
+  other_windows:
+    border:
+      enabled: true
+      color: '#45475a'        # Catppuccin Mocha — surface1
+
+window_behavior:
+  initial_state: 'tiling'
+  state_defaults:
+    floating:
+      centered: true
+      shown_on_top: true
+
+workspaces:
+  - name: '1'
+    display_name: '1'
+  - name: '2'
+  - name: '3'
+  - name: '4'
+  - name: '5'
+  - name: '6'
+  - name: '7'
+  - name: '8'
+  - name: '9'
+
+window_rules:
+  - commands: ['ignore']
+    match:
+      - window_process: { equals: 'PowerToys.PowerLauncher' }
+      - window_process: { equals: 'zebar' }
+      - window_class:   { equals: 'Windows.UI.Core.CoreWindow' }
+
+binding_modes: []
+
+keybindings:
+  # ── Apps (mirror Sway: Win+Enter / Win+R / Win+E / Win+L) ───────────────
+  - commands: ['shell-exec wt']
+    bindings: ['lwin+enter']
+  - commands: ['shell-exec ms-settings:']    # Win+R fallback (no PowerToys yet)
+    bindings: ['lwin+r']
+  - commands: ['shell-exec explorer']
+    bindings: ['lwin+e']
+  - commands: ['shell-exec rundll32.exe user32.dll,LockWorkStation']
+    bindings: ['lwin+l']
+
+  # ── Window mgmt ─────────────────────────────────────────────────────────
+  - commands: ['close']
+    bindings: ['lwin+q', 'alt+f4']
+  - commands: ['wm-exit']
+    bindings: ['lwin+shift+q']
+  - commands: ['focus --next-window']
+    bindings: ['lwin+tab', 'alt+tab']
+  - commands: ['focus --prev-window']
+    bindings: ['lwin+shift+tab']
+  - commands: ['focus --direction left']
+    bindings: ['lwin+h']
+  - commands: ['focus --direction down']
+    bindings: ['lwin+j']
+  - commands: ['focus --direction up']
+    bindings: ['lwin+k']
+
+  # ── Layouts ─────────────────────────────────────────────────────────────
+  - commands: ['toggle-tiling-direction']
+    bindings: ['lwin+d', 'lwin+t']
+  - commands: ['toggle-floating --centered']
+    bindings: ['lwin+f', 'lwin+space']
+  - commands: ['toggle-tabbed']
+    bindings: ['lwin+m']
+  - commands: ['toggle-fullscreen']
+    bindings: ['lwin+up']
+
+  # ── Resize ──────────────────────────────────────────────────────────────
+  - commands: ['resize --width -2%']
+    bindings: ['lwin+left']
+  - commands: ['resize --width +2%']
+    bindings: ['lwin+right']
+  - commands: ['resize --height -2%']
+    bindings: ['lwin+down']
+
+  # ── Workspaces 1..9 (Win+1..9 / Win+Shift+1..9) ─────────────────────────
+  - commands: ['focus --workspace 1']
+    bindings: ['lwin+1']
+  - commands: ['focus --workspace 2']
+    bindings: ['lwin+2']
+  - commands: ['focus --workspace 3']
+    bindings: ['lwin+3']
+  - commands: ['focus --workspace 4']
+    bindings: ['lwin+4']
+  - commands: ['focus --workspace 5']
+    bindings: ['lwin+5']
+  - commands: ['focus --workspace 6']
+    bindings: ['lwin+6']
+  - commands: ['focus --workspace 7']
+    bindings: ['lwin+7']
+  - commands: ['focus --workspace 8']
+    bindings: ['lwin+8']
+  - commands: ['focus --workspace 9']
+    bindings: ['lwin+9']
+  - commands: ['move --workspace 1']
+    bindings: ['lwin+shift+1']
+  - commands: ['move --workspace 2']
+    bindings: ['lwin+shift+2']
+  - commands: ['move --workspace 3']
+    bindings: ['lwin+shift+3']
+  - commands: ['move --workspace 4']
+    bindings: ['lwin+shift+4']
+  - commands: ['move --workspace 5']
+    bindings: ['lwin+shift+5']
+  - commands: ['move --workspace 6']
+    bindings: ['lwin+shift+6']
+  - commands: ['move --workspace 7']
+    bindings: ['lwin+shift+7']
+  - commands: ['move --workspace 8']
+    bindings: ['lwin+shift+8']
+  - commands: ['move --workspace 9']
+    bindings: ['lwin+shift+9']

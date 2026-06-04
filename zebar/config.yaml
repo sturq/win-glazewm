@@ -1,0 +1,88 @@
+# Zebar top-bar — mirrors Waybar layout (workspaces L · title C · sys R).
+# Catppuccin Mocha palette. Reference: https://github.com/glzr-io/zebar
+
+windows:
+  bar:
+    providers: ['glazewm', 'cpu', 'battery', 'memory', 'weather', 'network', 'date', 'audio']
+    z_order: 'top_most'
+    shown_in_taskbar: false
+    focusable: false
+    resizable: false
+    transparent: true
+    position_x: '0'
+    position_y: '0'
+    width: '100%'
+    height: '30'
+    monitor_selection:
+      type: 'all'
+    global_styles: |
+      @import "https://www.nerdfonts.com/assets/css/webfont.css";
+      @import "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap";
+    html: |
+      <div class="bar">
+        <div class="left">
+          {{#each providers.glazewm.currentWorkspaces}}
+            <button class="ws {{#if hasFocus}}active{{/if}}"
+                    onclick="globalThis.glazewm.runCommand('focus --workspace {{name}}')">
+              {{displayName}}
+            </button>
+          {{/each}}
+        </div>
+        <div class="center">
+          {{#if providers.glazewm.focusedContainer}}
+            {{providers.glazewm.focusedContainer.title}}
+          {{/if}}
+        </div>
+        <div class="right">
+          <span class="mod">{{providers.audio.defaultPlaybackDevice.volume}}%</span>
+          <span class="mod">{{providers.network.defaultGateway.ssid}}</span>
+          <span class="mod">{{providers.battery.chargePercent}}%</span>
+          <span class="mod">{{providers.date.formatted}}</span>
+        </div>
+      </div>
+    styles: |
+      :root {
+        --bg:        rgba(30, 30, 46, 0.85);    /* Catppuccin base + alpha */
+        --fg:        #cdd6f4;                   /* text */
+        --muted:     #6c7086;                   /* overlay0 */
+        --accent:    #cba6f7;                   /* mauve */
+        --surface:   #313244;                   /* surface0 */
+      }
+      * { box-sizing: border-box; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--fg); }
+      body { margin: 0; }
+      .bar {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        height: 30px;
+        padding: 0 12px;
+        background: var(--bg);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--surface);
+      }
+      .left   { display: flex; gap: 4px; justify-self: start; }
+      .center { justify-self: center; color: var(--muted); }
+      .right  { display: flex; gap: 14px; justify-self: end; }
+      .ws {
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--muted);
+        padding: 2px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .ws:hover  { background: var(--surface); color: var(--fg); }
+      .ws.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+      .mod       { color: var(--fg); }
+
+    date:
+      formatting: 'EEE dd MMM HH:mm'
+
+    audio:
+      enabled: true
+
+    network:
+      enabled: true
+
+    battery:
+      enabled: true
