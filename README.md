@@ -1,7 +1,8 @@
 # win-glazewm
 
-sturq's Windows tiling-desktop — same look + keybinds as the NixOS Sway+Waybar
-+ Stylix (Catppuccin Mocha) setup at [sturq/nix-config](https://github.com/sturq/nix-config).
+sturq's Windows tiling-desktop — the GlazeWM + Zebar mirror of the NixOS
+Sway + Waybar + Stylix setup at [`sturq/nix-config`](https://github.com/sturq/nix-config).
+Same keybinds, same colors, same workflow.
 
 | Tool | Latest release |
 |---|---|
@@ -22,15 +23,21 @@ iwr -useb https://raw.githubusercontent.com/sturq/win-glazewm/main/install.ps1 |
 
 What the script does:
 
-1. Checks for winget (Windows 10+/11 ships it via App Installer)
+1. Verifies winget is present (Windows 10+/11 has it via App Installer)
 2. Installs / upgrades **GlazeWM** (`glzr-io.glazewm`) to latest
 3. Installs / upgrades **Zebar** (`glzr-io.zebar`) to latest
 4. Installs **JetBrains Mono Nerd Font** (`NerdFonts.JetBrainsMono`)
 5. Clones this repo to `%USERPROFILE%\.config\win-glazewm`
+   (or `git pull --hard` if it's already there)
 6. Symlinks `glazewm/` and `zebar/` into `%USERPROFILE%\.glzr\`
-7. Adds GlazeWM to autostart (HKCU Run key)
+7. **Sets the desktop wallpaper** to sturq-palette `base` (`#2A3042`)
+8. **Sets the Windows accent color** to sturq-palette `primary` (`#B9C5EE`)
+9. **Sets the lockscreen background** to pure black (`#000000`)
+10. **Enables auto-hide on the taskbar** and restarts explorer
+11. Adds GlazeWM to autostart (HKCU Run key)
 
-Re-running pulls latest GlazeWM + Zebar versions and updates the repo.
+Re-running the script picks up the latest GlazeWM + Zebar versions and
+re-syncs the repo. Safe to run any number of times.
 
 ---
 
@@ -42,18 +49,19 @@ Re-running pulls latest GlazeWM + Zebar versions and updates the repo.
 | **Win + R** | Run / launcher |
 | **Win + E** | Explorer |
 | **Win + L** | Lock screen |
-| **Win + Q** / **Alt + F4** | Close window |
-| **Win + Tab** / **Alt + Tab** | Focus next window |
+| **Win + Q** · **Alt + F4** | Close window |
+| **Win + Shift + Q** | Exit GlazeWM |
+| **Win + Tab** · **Alt + Tab** | Focus next window |
 | **Win + Shift + Tab** | Focus previous window |
 | **Win + 1..9** | Switch to workspace |
 | **Win + Shift + 1..9** | Move window to workspace |
-| **Win + ← / →** | Resize master split |
+| **Win + ← / →** | Resize master split (width) |
+| **Win + ↓** | Resize height |
 | **Win + ↑** | Toggle fullscreen |
-| **Win + Space** / **Win + F** | Toggle floating |
-| **Win + D** / **Win + T** | Toggle tiling direction |
+| **Win + Space** · **Win + F** | Toggle floating |
+| **Win + D** · **Win + T** | Toggle tiling direction |
 | **Win + M** | Tabbed layout |
 | **Win + H/J/K** | Focus left/down/up (vi-style) |
-| **Win + Shift + Q** | Exit GlazeWM |
 
 ---
 
@@ -61,15 +69,16 @@ Re-running pulls latest GlazeWM + Zebar versions and updates the repo.
 
 ```
 win-glazewm/
-├── install.ps1          PowerShell installer (idempotent, always-latest)
+├── install.ps1          PowerShell installer (idempotent, always-latest,
+│                        wallpaper + accent + lockscreen + autohide).
 ├── glazewm/
-│   └── config.yaml      Keybinds + gaps + colors + workspaces
+│   └── config.yaml      Keybinds + gaps + colors + workspaces.
 └── zebar/
-    └── config.yaml      Top bar (HTML/CSS, Catppuccin Mocha, JetBrains Mono)
+    └── config.yaml      Top bar (HTML/CSS, sturq-palette OLED, JetBrains Mono).
 ```
 
-`glazewm/` symlinked to `%USERPROFILE%\.glzr\glazewm`
-`zebar/` symlinked to `%USERPROFILE%\.glzr\zebar`
+`glazewm/` is symlinked to `%USERPROFILE%\.glzr\glazewm`
+`zebar/` is symlinked to `%USERPROFILE%\.glzr\zebar`
 
 ---
 
@@ -94,5 +103,5 @@ identical when alt-tabbing between them on a KVM or RDP session.
 
 If keybinds, colors, workspace count, or any visible behaviour change in
 [`sturq/nix-config`](https://github.com/sturq/nix-config) (`home/features/desktop/sway.nix`
-or `modules/stylix.nix`), this repo gets mirrored in the same commit
-window. Both sides are intentionally kept in sync.
+or `modules/stylix.nix`), this repo gets mirrored in the same commit window.
+Both sides are intentionally kept in sync.

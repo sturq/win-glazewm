@@ -102,7 +102,62 @@ foreach ($l in $links) {
     Write-Ok 'Symlink created.'
 }
 
-# ─── 6. Autostart at login ─────────────────────────────────────────────────
+# ─── 6. Wallpaper = sturq base (#2A3042), accent = primary (#B9C5EE) ──────
+Write-Step 'Setting wallpaper to sturq-palette base'
+Add-Type -AssemblyName System.Drawing | Out-Null
+$wallpaperPath = "$env:USERPROFILE\.glzr\wallpaper.png"
+$bmp = New-Object System.Drawing.Bitmap 1920, 1080
+$g   = [System.Drawing.Graphics]::FromImage($bmp)
+$g.Clear([System.Drawing.Color]::FromArgb(0x2A, 0x30, 0x42))
+$bmp.Save($wallpaperPath, [System.Drawing.Imaging.ImageFormat]::Png)
+$g.Dispose(); $bmp.Dispose()
+
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+public class _Wp {
+  [DllImport("user32.dll", CharSet=CharSet.Auto)]
+  public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
+}
+"@ -ErrorAction SilentlyContinue
+[void][_Wp]::SystemParametersInfo(20, 0, $wallpaperPath, 3)
+Write-Ok "Wallpaper set: $wallpaperPath"
+
+Write-Step 'Setting Windows accent color to sturq-palette primary (#B9C5EE)'
+# Windows stores colors as 0xAABBGGRR — sturq lavender BGR = 0xEEC5B9
+$dwm = 'HKCU:\Software\Microsoft\Windows\DWM'
+Set-ItemProperty $dwm 'AccentColor'         -Value 0xFFEEC5B9 -Type DWord
+Set-ItemProperty $dwm 'ColorizationColor'   -Value 0xFFEEC5B9 -Type DWord
+Set-ItemProperty $dwm 'ColorizationAfterglow' -Value 0xFFEEC5B9 -Type DWord
+Set-ItemProperty $dwm 'ColorPrevalence'     -Value 1 -Type DWord
+Write-Ok 'Accent color set.'
+
+Write-Step 'Setting lockscreen background to pure black'
+$lockPath = "$env:USERPROFILE\.glzr\lockscreen.png"
+$bmpL = New-Object System.Drawing.Bitmap 1920, 1080
+$gL   = [System.Drawing.Graphics]::FromImage($bmpL)
+$gL.Clear([System.Drawing.Color]::Black)
+$bmpL.Save($lockPath, [System.Drawing.Imaging.ImageFormat]::Png)
+$gL.Dispose(); $bmpL.Dispose()
+
+$csp = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\PersonalizationCSP'
+if (-not (Test-Path $csp)) { New-Item -Path $csp -Force | Out-Null }
+Set-ItemProperty $csp 'LockScreenImageUrl'    -Value $lockPath
+Set-ItemProperty $csp 'LockScreenImagePath'   -Value $lockPath
+Set-ItemProperty $csp 'LockScreenImageStatus' -Value 1 -Type DWord
+Write-Ok 'Lockscreen set to pure black.'
+
+Write-Step 'Auto-hide taskbar'
+$stuckPath = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3'
+if (Test-Path $stuckPath) {
+    $stuck = (Get-ItemProperty $stuckPath).Settings
+    $stuck[8] = 3   # bit flag: 3 = auto-hide enabled
+    Set-ItemProperty $stuckPath 'Settings' $stuck
+}
+Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue
+Write-Ok 'Taskbar will auto-hide (explorer restarted).'
+
+# ─── 7. Autostart at login ─────────────────────────────────────────────────
 Write-Step 'Registering GlazeWM autostart (HKCU Run key)'
 $runKey  = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run'
 $glzExe  = (Get-Command 'glazewm' -ErrorAction SilentlyContinue)?.Source
