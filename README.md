@@ -30,11 +30,14 @@ What the script does:
 5. Clones this repo to `%USERPROFILE%\.config\win-glazewm`
    (or `git pull --hard` if it's already there)
 6. Symlinks `glazewm/` and `zebar/` into `%USERPROFILE%\.glzr\`
-7. **Sets the desktop wallpaper** to sturq-palette `base` (`#2A3042`)
+7. **Sets the desktop wallpaper** to sturq-palette `primary` (`#B9C5EE`, solid)
 8. **Sets the Windows accent color** to sturq-palette `primary` (`#B9C5EE`)
 9. **Sets the lockscreen background** to pure black (`#000000`)
-10. **Enables auto-hide on the taskbar** and restarts explorer
-11. Adds GlazeWM to autostart (HKCU Run key)
+10. **Forces dark theme** (system + apps)
+11. **Hides all desktop icons**
+12. **Themes Windows Terminal** — OLED-black bg + Tango ANSI + Roboto Mono Nerd Font
+13. **Enables auto-hide on the taskbar** and restarts explorer
+14. Adds GlazeWM to autostart (HKCU Run key)
 
 Re-running the script picks up the latest GlazeWM + Zebar versions and
 re-syncs the repo. Safe to run any number of times.
@@ -48,7 +51,7 @@ re-syncs the repo. Safe to run any number of times.
 | **Win + Enter** | Windows Terminal |
 | **Win + R** | Run / launcher |
 | **Win + E** | Explorer |
-| **Win + L** | Lock screen |
+| **Win + Ctrl + L** | Lock (Win+L alone is system-reserved on Windows) |
 | **Win + Q** · **Alt + F4** | Close window |
 | **Win + Shift + Q** | Exit GlazeWM |
 | **Win + Tab** · **Alt + Tab** | Focus next window |

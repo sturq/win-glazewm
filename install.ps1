@@ -104,12 +104,12 @@ foreach ($l in $links) {
 }
 
 # ─── 6. Wallpaper = sturq base (#2A3042), accent = primary (#B9C5EE) ──────
-Write-Step 'Setting wallpaper to sturq-palette base'
+Write-Step 'Setting wallpaper to sturq-palette primary (#B9C5EE, solid)'
 Add-Type -AssemblyName System.Drawing | Out-Null
 $wallpaperPath = "$env:USERPROFILE\.glzr\wallpaper.png"
 $bmp = New-Object System.Drawing.Bitmap 1920, 1080
 $g   = [System.Drawing.Graphics]::FromImage($bmp)
-$g.Clear([System.Drawing.Color]::FromArgb(0x2A, 0x30, 0x42))
+$g.Clear([System.Drawing.Color]::FromArgb(0xB9, 0xC5, 0xEE))
 $bmp.Save($wallpaperPath, [System.Drawing.Imaging.ImageFormat]::Png)
 $g.Dispose(); $bmp.Dispose()
 
@@ -147,6 +147,44 @@ Set-ItemProperty $csp 'LockScreenImageUrl'    -Value $lockPath
 Set-ItemProperty $csp 'LockScreenImagePath'   -Value $lockPath
 Set-ItemProperty $csp 'LockScreenImageStatus' -Value 1 -Type DWord
 Write-Ok 'Lockscreen set to pure black.'
+
+Write-Step 'Forcing dark theme (apps + system)'
+$themes = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize'
+Set-ItemProperty $themes 'AppsUseLightTheme'   -Value 0 -Type DWord
+Set-ItemProperty $themes 'SystemUsesLightTheme' -Value 0 -Type DWord
+Write-Ok 'Dark mode enforced.'
+
+Write-Step 'Hiding all desktop icons'
+$adv = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
+Set-ItemProperty $adv 'HideIcons' -Value 1 -Type DWord
+Write-Ok 'Desktop icons hidden.'
+
+Write-Step 'Configuring Windows Terminal — OLED-black bg + Termux/Tango colors + Roboto Mono'
+$wtSettings = Get-ChildItem "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_*\LocalState\settings.json" -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($wtSettings) {
+    $json = Get-Content $wtSettings.FullName -Raw | ConvertFrom-Json
+    $tango = @{
+        name       = 'Termux-OLED'
+        background = '#000000'
+        foreground = '#FFFFFF'
+        cursorColor= '#FFFFFF'
+        selectionBackground = '#46506E'
+        black   = '#000000'; red     = '#CC0000'; green = '#4E9A06'; yellow  = '#C4A000'
+        blue    = '#3465A4'; purple  = '#75507B'; cyan  = '#06989A'; white   = '#D3D7CF'
+        brightBlack  = '#555753'; brightRed    = '#EF2929'; brightGreen = '#8AE234'; brightYellow = '#FCE94F'
+        brightBlue   = '#729FCF'; brightPurple = '#AD7FA8'; brightCyan  = '#34E2E2'; brightWhite  = '#EEEEEC'
+    }
+    if (-not $json.schemes) { $json | Add-Member -NotePropertyName schemes -NotePropertyValue @() -Force }
+    $json.schemes = @($json.schemes | Where-Object { $_.name -ne 'Termux-OLED' }) + $tango
+    if (-not $json.profiles.defaults) { $json.profiles | Add-Member -NotePropertyName defaults -NotePropertyValue @{} -Force }
+    $json.profiles.defaults | Add-Member -NotePropertyName colorScheme -NotePropertyValue 'Termux-OLED' -Force
+    $json.profiles.defaults | Add-Member -NotePropertyName font -NotePropertyValue @{ face = 'RobotoMono Nerd Font Mono'; size = 12 } -Force
+    $json.profiles.defaults | Add-Member -NotePropertyName opacity -NotePropertyValue 100 -Force
+    $json | ConvertTo-Json -Depth 32 | Set-Content $wtSettings.FullName
+    Write-Ok 'Windows Terminal themed (Termux-OLED + Roboto Mono).'
+} else {
+    Write-Warn2 'Windows Terminal settings.json not found; open it once then re-run the installer.'
+}
 
 Write-Step 'Auto-hide taskbar'
 $stuckPath = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3'

@@ -66,8 +66,11 @@ keybindings:
     bindings: ['lwin+r']
   - commands: ['shell-exec explorer']
     bindings: ['lwin+e']
+  # Win+L is system-reserved on Windows (always locks). Use Win+Ctrl+L for
+  # our explicit lock so it matches across both platforms. (Win+L on Windows
+  # still locks via the OS, just not through GlazeWM.)
   - commands: ['shell-exec rundll32.exe user32.dll,LockWorkStation']
-    bindings: ['lwin+l']
+    bindings: ['lwin+ctrl+l']
 
   # ── Window mgmt ─────────────────────────────────────────────────────────
   - commands: ['close']

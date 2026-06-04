@@ -35,9 +35,11 @@ windows:
           {{/if}}
         </div>
         <div class="right">
-          <span class="mod">{{providers.audio.defaultPlaybackDevice.volume}}%</span>
-          <span class="mod">{{providers.network.defaultGateway.ssid}}</span>
-          <span class="mod">{{providers.battery.chargePercent}}%</span>
+          <span class="mod"> {{Math.round(providers.cpu.usage)}}%</span>
+          <span class="mod"> {{Math.round(providers.memory.usage)}}%</span>
+          <span class="mod"> {{Math.round((providers.network.defaultInterface.transmitted || 0) / 1024)}}KB↑ {{Math.round((providers.network.defaultInterface.received || 0) / 1024)}}KB↓</span>
+          <span class="mod"> {{providers.audio.defaultPlaybackDevice.volume}}%</span>
+          <span class="mod"> {{providers.battery.chargePercent}}%</span>
           <span class="mod">{{providers.date.formatted}}</span>
         </div>
       </div>
