@@ -43,11 +43,11 @@ windows:
       </div>
     styles: |
       :root {
-        --bg:        rgba(42, 48, 66, 0.85);    /* sturq base + alpha */
+        --bg:        #2A3042;                   /* sturq base — same as wallpaper */
         --fg:        #FFFFFF;                   /* text */
-        --muted:     #67739D;                   /* overlay0 */
-        --accent:    #B9C5EE;                   /* lavender (primary) */
-        --surface:   #384058;                   /* surface0 */
+        --muted:     #9CA7CE;                   /* overlay2 */
+        --accent:    #B9C5EE;                   /* lavender (primary) — secondary on bar */
+        --surface:   #46506E;                   /* surface1 — hover */
       }
       * { box-sizing: border-box; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--fg); }
       body { margin: 0; }
