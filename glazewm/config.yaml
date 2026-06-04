@@ -1,6 +1,7 @@
 # GlazeWM config — mirrors the keybinds + look of sturq's NixOS Sway+Waybar.
-# Catppuccin Mocha palette. Win-key = primary modifier.
+# sturq-palette OLED. Win-key = primary modifier.
 # Reference: https://github.com/glzr-io/glazewm
+# Palette: https://github.com/sturq/sturq-palette
 
 general:
   startup_commands:
@@ -23,11 +24,11 @@ window_effects:
   focused_window:
     border:
       enabled: true
-      color: '#cba6f7'        # Catppuccin Mocha — mauve
+      color: '#B9C5EE'        # sturq-palette — primary/lavender
   other_windows:
     border:
       enabled: true
-      color: '#45475a'        # Catppuccin Mocha — surface1
+      color: '#46506E'        # sturq-palette — surface1
 
 window_behavior:
   initial_state: 'tiling'

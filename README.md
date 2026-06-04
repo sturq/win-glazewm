@@ -75,17 +75,18 @@ win-glazewm/
 
 ## Theme
 
-Catppuccin Mocha — mirrors the Stylix scheme on the NixOS side so both
-machines feel identical when you alt-tab between them on a KVM or RDP.
+[**sturq-palette OLED**](https://github.com/sturq/sturq-palette) — the same
+palette is loaded into Stylix on the NixOS side, so both machines feel
+identical when alt-tabbing between them on a KVM or RDP session.
 
-| Role | Hex | Catppuccin name |
+| Role | Hex | sturq-palette name |
 |---|---|---|
-| Background | `#1e1e2e` | base |
-| Surface | `#313244` | surface0 |
-| Border (focus) | `#cba6f7` | mauve |
-| Border (other) | `#45475a` | surface1 |
-| Text | `#cdd6f4` | text |
-| Muted | `#6c7086` | overlay0 |
+| Background | `#2A3042` | base |
+| Surface | `#384058` | surface0 |
+| Border (focus) | `#B9C5EE` | lavender / primary |
+| Border (other) | `#46506E` | surface1 |
+| Text | `#FFFFFF` | text |
+| Muted | `#67739D` | overlay0 |
 
 ---
 

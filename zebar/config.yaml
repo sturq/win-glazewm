@@ -1,5 +1,6 @@
 # Zebar top-bar — mirrors Waybar layout (workspaces L · title C · sys R).
-# Catppuccin Mocha palette. Reference: https://github.com/glzr-io/zebar
+# sturq-palette OLED. Reference: https://github.com/glzr-io/zebar
+# Palette: https://github.com/sturq/sturq-palette
 
 windows:
   bar:
@@ -42,11 +43,11 @@ windows:
       </div>
     styles: |
       :root {
-        --bg:        rgba(30, 30, 46, 0.85);    /* Catppuccin base + alpha */
-        --fg:        #cdd6f4;                   /* text */
-        --muted:     #6c7086;                   /* overlay0 */
-        --accent:    #cba6f7;                   /* mauve */
-        --surface:   #313244;                   /* surface0 */
+        --bg:        rgba(42, 48, 66, 0.85);    /* sturq base + alpha */
+        --fg:        #FFFFFF;                   /* text */
+        --muted:     #67739D;                   /* overlay0 */
+        --accent:    #B9C5EE;                   /* lavender (primary) */
+        --surface:   #384058;                   /* surface0 */
       }
       * { box-sizing: border-box; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--fg); }
       body { margin: 0; }
