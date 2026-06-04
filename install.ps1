@@ -62,11 +62,12 @@ foreach ($p in $pkgs) {
     Write-Ok "$($p.name) is at the latest published version."
 }
 
-# ─── 3. JetBrains Mono Nerd Font (matches the NixOS side via Stylix) ───────
+# ─── 3. Fonts: Roboto + RobotoMono Nerd (match NixOS Stylix side) ─────────
 if (-not $NoFonts) {
-    Write-Step 'Installing JetBrains Mono Nerd Font'
-    winget install --id 'NerdFonts.JetBrainsMono' --exact --silent --accept-source-agreements --accept-package-agreements --disable-interactivity 2>&1 | Out-Null
-    Write-Ok 'JetBrains Mono Nerd Font ready.'
+    Write-Step 'Installing Roboto + RobotoMono Nerd Font'
+    winget install --id 'Google.Roboto'             --exact --silent --accept-source-agreements --accept-package-agreements --disable-interactivity 2>&1 | Out-Null
+    winget install --id 'NerdFonts.RobotoMono'      --exact --silent --accept-source-agreements --accept-package-agreements --disable-interactivity 2>&1 | Out-Null
+    Write-Ok 'Roboto + RobotoMono Nerd Font ready.'
 }
 
 # ─── 4. Clone / update repo with configs ───────────────────────────────────

@@ -18,7 +18,7 @@ windows:
       type: 'all'
     global_styles: |
       @import "https://www.nerdfonts.com/assets/css/webfont.css";
-      @import "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap";
+      @import "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap";
     html: |
       <div class="bar">
         <div class="left">
@@ -49,7 +49,7 @@ windows:
         --accent:    #B9C5EE;                   /* lavender (primary) — secondary on bar */
         --surface:   #46506E;                   /* surface1 — hover */
       }
-      * { box-sizing: border-box; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--fg); }
+      * { box-sizing: border-box; font-family: 'RobotoMono Nerd Font Mono', 'Roboto Mono', monospace; font-size: 12px; color: var(--fg); }
       body { margin: 0; }
       .bar {
         display: grid;
