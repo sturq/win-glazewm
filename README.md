@@ -51,7 +51,7 @@ re-syncs the repo. Safe to run any number of times.
 | **Win + Enter** | Windows Terminal |
 | **Win + R** | Run / launcher |
 | **Win + E** | Explorer |
-| **Win + Ctrl + L** | Lock (Win+L alone is system-reserved on Windows) |
+| **Win + L** | Lock (handled natively by Windows — no GlazeWM binding needed) |
 | **Win + Q** · **Alt + F4** | Close window |
 | **Win + Shift + Q** | Exit GlazeWM |
 | **Win + Tab** · **Alt + Tab** | Focus next window |

@@ -66,11 +66,8 @@ keybindings:
     bindings: ['lwin+r']
   - commands: ['shell-exec explorer']
     bindings: ['lwin+e']
-  # Win+L is system-reserved on Windows (always locks). Use Win+Ctrl+L for
-  # our explicit lock so it matches across both platforms. (Win+L on Windows
-  # still locks via the OS, just not through GlazeWM.)
-  - commands: ['shell-exec rundll32.exe user32.dll,LockWorkStation']
-    bindings: ['lwin+ctrl+l']
+  # Win+L is handled by Windows itself (system-level lock) — no GlazeWM
+  # binding needed. Sway side keeps Win+L → swaylock to match.
 
   # ── Window mgmt ─────────────────────────────────────────────────────────
   - commands: ['close']
