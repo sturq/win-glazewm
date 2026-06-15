@@ -87,3 +87,7 @@ win-glazewm/
 If keybinds or workspace behaviour change in [`sturq/nix-config`](https://github.com/sturq/nix-config)
 (KWin shortcuts inside the Plasma config), this repo gets mirrored in the same
 commit window. Both sides are intentionally kept in sync.
+
+## License
+
+GPL-3.0 — see [LICENSE](LICENSE). Forks and redistributions must keep the source open.
